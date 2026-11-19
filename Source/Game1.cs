@@ -12,13 +12,22 @@ namespace Pop_nSim
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
+
+            var displayMode = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode;
+            _graphics.PreferredBackBufferWidth = displayMode.Width;
+            _graphics.PreferredBackBufferHeight = displayMode.Height;
+            _graphics.HardwareModeSwitch = false;
+            _graphics.IsFullScreen = false;
+
+            Window.IsBorderless = true;
+
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            _graphics.ApplyChanges();
 
             base.Initialize();
         }
@@ -46,7 +55,7 @@ namespace Pop_nSim
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
 
