@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using PopnSim.Utilities;
 using System;
 
 namespace PopnSim
@@ -10,8 +11,8 @@ namespace PopnSim
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private SpriteFont _textFont;
-        private int fpsCounter;
-        private double fpsTimer;
+        private int _fpsCounter;
+        private GameTimer _fpsCounterTimer;
 
         public Game1()
         {
@@ -31,7 +32,7 @@ namespace PopnSim
 
             // Caps frames
             var FPSCap = 1000;
-            IsFixedTimeStep = true;
+            IsFixedTimeStep = false;
             TargetElapsedTime = TimeSpan.FromSeconds(1.0 / FPSCap);
 
             Content.RootDirectory = "Content";
@@ -41,6 +42,8 @@ namespace PopnSim
         protected override void Initialize()
         {
             _graphics.ApplyChanges();
+            
+            _fpsCounterTimer = new GameTimer(0.25, true);
 
             base.Initialize();
         }
@@ -62,12 +65,10 @@ namespace PopnSim
                 Exit();
 #endif
 
-            // Update the FPS counter
-            fpsTimer += gameTime.ElapsedGameTime.TotalSeconds;
-            if (fpsTimer >= 1.0)
+            _fpsCounterTimer.Start();
+            if (_fpsCounterTimer.Update(gameTime))
             {
-                fpsCounter = (int)(1.0 / gameTime.ElapsedGameTime.TotalSeconds);
-                fpsTimer = 0.0;
+                _fpsCounter = (int)(1.0 / gameTime.ElapsedGameTime.TotalSeconds);
             }
 
             base.Update(gameTime);
@@ -79,7 +80,7 @@ namespace PopnSim
 
             _spriteBatch.Begin();
 
-            _spriteBatch.DrawString(_textFont, $"FPS: {fpsCounter}", new Vector2(10, 10), Color.White);
+            _spriteBatch.DrawString(_textFont, $"FPS: {_fpsCounter}", new Vector2(10, 10), Color.White);
 
             _spriteBatch.End();
 
