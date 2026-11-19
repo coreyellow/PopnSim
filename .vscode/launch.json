@@ -1,0 +1,36 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Pop_nSim (DesktopGL)",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}/Platforms/DesktopGL/Pop_nSim.DesktopGL.csproj",
+            "preLaunchTask": "Build: DesktopGL"
+        }
+        ,
+        {
+            "name": "Pop_nSim (DesktopVK)",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}/Platforms/DesktopVK/Pop_nSim.DesktopVK.csproj",
+            "preLaunchTask": "Build: DesktopVK"
+        }
+        ,
+        {
+            "name": "Pop_nSim (WindowsDX)",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}/Platforms/WindowsDX/Pop_nSim.WindowsDX.csproj",
+            "preLaunchTask": "Build: WindowsDX"
+        }
+        ,
+        {
+            "name": "Pop_nSim (WindowsDX12)",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}/Platforms/WindowsDX12/Pop_nSim.WindowsDX12.csproj",
+            "preLaunchTask": "Build: WindowsDX12"
+        }
+    ]
+}

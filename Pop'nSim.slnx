@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="Content/Content.csproj" />
+  <Project Path="Platforms/DesktopGL/Pop_nSim.DesktopGL.csproj" />
+  <Project Path="Platforms/DesktopVK/Pop_nSim.DesktopVK.csproj" />
+  <Project Path="Platforms/WindowsDX/Pop_nSim.WindowsDX.csproj" />
+  <Project Path="Platforms/WindowsDX12/Pop_nSim.WindowsDX12.csproj" />
+</Solution>
