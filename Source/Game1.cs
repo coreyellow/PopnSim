@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 
-namespace Pop_nSim
+namespace PopnSim
 {
     public class Game1 : Microsoft.Xna.Framework.Game
     {

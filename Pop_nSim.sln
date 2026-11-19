@@ -5,13 +5,13 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Platforms", "Platforms", "{668F9954-D94A-4519-B093-985F9A38D7A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pop_nSim.DesktopGL", "Platforms\DesktopGL\Pop_nSim.DesktopGL.csproj", "{6D35CCF7-D7D6-45BA-9DFB-4D2B75199A13}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PopnSim.DesktopGL", "Platforms\DesktopGL\PopnSim.DesktopGL.csproj", "{6D35CCF7-D7D6-45BA-9DFB-4D2B75199A13}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pop_nSim.DesktopVK", "Platforms\DesktopVK\Pop_nSim.DesktopVK.csproj", "{9661E854-7FF3-4165-88F5-25F98088F6C4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PopnSim.DesktopVK", "Platforms\DesktopVK\PopnSim.DesktopVK.csproj", "{9661E854-7FF3-4165-88F5-25F98088F6C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pop_nSim.WindowsDX", "Platforms\WindowsDX\Pop_nSim.WindowsDX.csproj", "{969393D1-F8DC-4909-A06E-8182B82B89DE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PopnSim.WindowsDX", "Platforms\WindowsDX\PopnSim.WindowsDX.csproj", "{969393D1-F8DC-4909-A06E-8182B82B89DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pop_nSim.WindowsDX12", "Platforms\WindowsDX12\Pop_nSim.WindowsDX12.csproj", "{8376FF93-8589-45A6-AA5B-CF6C86777E3E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PopnSim.WindowsDX12", "Platforms\WindowsDX12\PopnSim.WindowsDX12.csproj", "{8376FF93-8589-45A6-AA5B-CF6C86777E3E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Content", "Content\Content.csproj", "{CC26119C-434D-40D3-B187-D77BCCF49239}"
 EndProject

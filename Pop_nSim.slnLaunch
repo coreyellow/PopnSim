@@ -3,7 +3,7 @@
     "Name": "DesktopGL",
     "Projects": [
       {
-        "Path": "Platforms\\DesktopGL\\Pop_nSim.DesktopGL.csproj",
+        "Path": "Platforms\\DesktopGL\\PopnSim.DesktopGL.csproj",
         "Action": "Start"
       },
       {
@@ -17,7 +17,7 @@
     "Name": "DesktopVK",
     "Projects": [
       {
-        "Path": "Platforms\\DesktopVK\\Pop_nSim.DesktopVK.csproj",
+        "Path": "Platforms\\DesktopVK\\PopnSim.DesktopVK.csproj",
         "Action": "Start"
       },
       {
@@ -31,7 +31,7 @@
     "Name": "WindowsDX",
     "Projects": [
       {
-        "Path": "Platforms\\WindowsDX\\Pop_nSim.WindowsDX.csproj",
+        "Path": "Platforms\\WindowsDX\\PopnSim.WindowsDX.csproj",
         "Action": "Start"
       },
       {
@@ -45,7 +45,7 @@
     "Name": "WindowsDX12",
     "Projects": [
       {
-        "Path": "Platforms\\WindowsDX12\\Pop_nSim.WindowsDX12.csproj",
+        "Path": "Platforms\\WindowsDX12\\PopnSim.WindowsDX12.csproj",
         "Action": "Start"
       },
       {
