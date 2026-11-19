@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+  </Folder>
   <Project Path="Content/Content.csproj" />
   <Project Path="Platforms/DesktopGL/Pop_nSim.DesktopGL.csproj" />
   <Project Path="Platforms/DesktopVK/Pop_nSim.DesktopVK.csproj" />
