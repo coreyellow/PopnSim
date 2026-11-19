@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace Pop_nSim
 {
@@ -8,18 +9,30 @@ namespace Pop_nSim
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        private SpriteFont _textFont;
+        private int fpsCounter;
+        private double fpsTimer;
 
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
 
+            // Window settings
             var displayMode = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode;
             _graphics.PreferredBackBufferWidth = displayMode.Width;
             _graphics.PreferredBackBufferHeight = displayMode.Height;
             _graphics.HardwareModeSwitch = false;
             _graphics.IsFullScreen = false;
-
             Window.IsBorderless = true;
+
+            // Frame rate settings:
+            // Disable VSync
+            _graphics.SynchronizeWithVerticalRetrace = false;
+
+            // Caps frames
+            var FPSCap = 1000;
+            IsFixedTimeStep = true;
+            TargetElapsedTime = TimeSpan.FromSeconds(1.0 / FPSCap);
 
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
@@ -37,6 +50,7 @@ namespace Pop_nSim
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            _textFont = Content.Load<SpriteFont>("Fonts/Roboto");
         }
 
         protected override void Update(GameTime gameTime)
@@ -48,7 +62,13 @@ namespace Pop_nSim
                 Exit();
 #endif
 
-            // TODO: Add your update logic here
+            // Update the FPS counter
+            fpsTimer += gameTime.ElapsedGameTime.TotalSeconds;
+            if (fpsTimer >= 1.0)
+            {
+                fpsCounter = (int)(1.0 / gameTime.ElapsedGameTime.TotalSeconds);
+                fpsTimer = 0.0;
+            }
 
             base.Update(gameTime);
         }
@@ -57,7 +77,11 @@ namespace Pop_nSim
         {
             GraphicsDevice.Clear(Color.Black);
 
-            // TODO: Add your drawing code here
+            _spriteBatch.Begin();
+
+            _spriteBatch.DrawString(_textFont, $"FPS: {fpsCounter}", new Vector2(10, 10), Color.White);
+
+            _spriteBatch.End();
 
             base.Draw(gameTime);
         }
