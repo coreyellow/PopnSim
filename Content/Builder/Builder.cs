@@ -68,6 +68,9 @@ public class Builder : ContentBuilder
         //    }
         // );
 
+        content.Include<WildcardRule>("*");
+        content.Exclude<WildcardRule>("Fonts/*.ttf");
+
         return content;
     }
 }
