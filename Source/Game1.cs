@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using PopnSim.Utilities;
@@ -8,50 +9,85 @@ namespace PopnSim;
 
 public class Game1 : Microsoft.Xna.Framework.Game
 {
-    private GraphicsDeviceManager _graphics;
-    private SpriteBatch _spriteBatch;
+    internal static Game1 s_instance;
+
+    /// <summary>
+    /// Gets a reference to the Game1 instance.
+    /// </summary>
+    public static Game1 Instance => s_instance;
+
+    /// <summary>
+    /// Gets the graphics device manager to control the presentation of graphics.
+    /// </summary>
+    public static GraphicsDeviceManager Graphics { get; private set; }
+
+    /// <summary>
+    /// Gets the graphics device used to create graphical resources and perform primitive rendering.
+    /// </summary>
+    public static new GraphicsDevice GraphicsDevice { get; private set; }
+
+    /// <summary>
+    /// Gets the sprite batch used for all 2D rendering.
+    /// </summary>
+    public static SpriteBatch SpriteBatch { get; private set; }
+
+    /// <summary>
+    /// Gets the content manager used to load global assets.
+    /// </summary>
+    public static new ContentManager Content { get; private set; }
+
     private SpriteFont _textFont;
     private int _fpsCounter;
     private GameTimer _fpsCounterTimer;
 
     public Game1()
     {
-        _graphics = new GraphicsDeviceManager(this);
+        // Ensure that multiple cores are not created.
+        if (s_instance != null)
+        {
+            throw new InvalidOperationException($"Only a single Game instance can be created");
+        }
+
+        // Store reference to engine for global member access.
+        s_instance = this;
+
+        Graphics = new GraphicsDeviceManager(this);
 
         // Window settings
         var displayMode = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode;
-        _graphics.PreferredBackBufferWidth = displayMode.Width;
-        _graphics.PreferredBackBufferHeight = displayMode.Height;
-        _graphics.HardwareModeSwitch = false;
-        _graphics.IsFullScreen = false;
+        Graphics.PreferredBackBufferWidth = displayMode.Width;
+        Graphics.PreferredBackBufferHeight = displayMode.Height;
+        Graphics.HardwareModeSwitch = false;
+        Graphics.IsFullScreen = false;
         Window.IsBorderless = true;
 
         // Frame rate settings:
         // Disable VSync
-        _graphics.SynchronizeWithVerticalRetrace = false;
+        Graphics.SynchronizeWithVerticalRetrace = false;
 
         // Caps frames
         var FPSCap = 1000;
         IsFixedTimeStep = false;
         TargetElapsedTime = TimeSpan.FromSeconds(1.0 / FPSCap);
 
+        Content = base.Content;
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
+
+        Graphics.ApplyChanges();
     }
 
     protected override void Initialize()
     {
-        _graphics.ApplyChanges();
-        
         _fpsCounterTimer = new GameTimer(0.25, true);
 
         base.Initialize();
+        GraphicsDevice = base.GraphicsDevice;
+        SpriteBatch = new SpriteBatch(GraphicsDevice);
     }
 
     protected override void LoadContent()
     {
-        _spriteBatch = new SpriteBatch(GraphicsDevice);
-
         // TODO: use this.Content to load your game content here
         _textFont = Content.Load<SpriteFont>("Fonts/Roboto");
     }
@@ -78,11 +114,11 @@ public class Game1 : Microsoft.Xna.Framework.Game
     {
         GraphicsDevice.Clear(Color.Black);
 
-        _spriteBatch.Begin();
+        SpriteBatch.Begin();
 
-        _spriteBatch.DrawString(_textFont, $"FPS: {_fpsCounter}", new Vector2(10, 10), Color.White);
+        SpriteBatch.DrawString(_textFont, $"FPS: {_fpsCounter}", new Vector2(10, 10), Color.White);
 
-        _spriteBatch.End();
+        SpriteBatch.End();
 
         base.Draw(gameTime);
     }
