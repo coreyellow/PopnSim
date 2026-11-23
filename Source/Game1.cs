@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using PopnSim.Scenes;
 using PopnSim.Utilities;
 using System;
 
@@ -15,6 +16,16 @@ public class Game1 : Microsoft.Xna.Framework.Game
     /// Gets a reference to the Game1 instance.
     /// </summary>
     public static Game1 Instance => s_instance;
+
+    /// <summary>
+    /// The scene that is currently active and being updated/drawn.
+    /// </summary>
+    private static Scene s_activeScene;
+
+    /// <summary>
+    /// The next scene to switch to on a scene transition.
+    /// </summary>
+    private static Scene s_nextScene;
 
     /// <summary>
     /// Gets the graphics device manager to control the presentation of graphics.
@@ -36,9 +47,10 @@ public class Game1 : Microsoft.Xna.Framework.Game
     /// </summary>
     public static new ContentManager Content { get; private set; }
 
-    private SpriteFont _textFont;
-    private int _fpsCounter;
-    private GameTimer _fpsCounterTimer;
+    /// <summary>
+    /// Gets or Sets a value that indicates if the game should exit when the esc key on the keyboard is pressed.
+    /// </summary>
+    public static bool ExitOnEscape { get; set; }
 
     public Game1()
     {
@@ -75,21 +87,18 @@ public class Game1 : Microsoft.Xna.Framework.Game
         IsMouseVisible = true;
 
         Graphics.ApplyChanges();
+
+        ExitOnEscape = true;
     }
 
     protected override void Initialize()
     {
-        _fpsCounterTimer = new GameTimer(0.25, true);
-
         base.Initialize();
         GraphicsDevice = base.GraphicsDevice;
         SpriteBatch = new SpriteBatch(GraphicsDevice);
-    }
 
-    protected override void LoadContent()
-    {
-        // TODO: use this.Content to load your game content here
-        _textFont = Content.Load<SpriteFont>("Fonts/Roboto");
+        // Start with the title scene
+        ChangeScene(new TitleScene());
     }
 
     protected override void Update(GameTime gameTime)
@@ -97,29 +106,41 @@ public class Game1 : Microsoft.Xna.Framework.Game
 #if !__IOS__
         // Exit the game if the Back button (GamePad) or Escape key (Keyboard) is pressed.
         // (iOS does not allow programmatically closing an app.)
-        if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+        if (ExitOnEscape &&
+            (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape)))
+        {
             Exit();
+        }
 #endif
 
-        _fpsCounterTimer.Start();
-        if (_fpsCounterTimer.Update(gameTime))
-        {
-            _fpsCounter = (int)(1.0 / gameTime.ElapsedGameTime.TotalSeconds);
-        }
+        if (s_nextScene != null) { TransitionScene(); }
+
+        s_activeScene?.Update(gameTime);
 
         base.Update(gameTime);
     }
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Color.Black);
-
-        SpriteBatch.Begin();
-
-        SpriteBatch.DrawString(_textFont, $"FPS: {_fpsCounter}", new Vector2(10, 10), Color.White);
-
-        SpriteBatch.End();
+        s_activeScene?.Draw(gameTime);
 
         base.Draw(gameTime);
+    }
+
+    public static void ChangeScene(Scene next)
+    {
+        if (s_activeScene != next) { s_nextScene = next; }
+    }
+
+    private static void TransitionScene()
+    {
+        if (s_activeScene != null) { s_activeScene.Dispose(); }
+
+        GC.Collect();
+
+        s_activeScene = s_nextScene;
+        s_nextScene = null;
+
+        if (s_activeScene != null) { s_activeScene.Initialize(); }
     }
 }
