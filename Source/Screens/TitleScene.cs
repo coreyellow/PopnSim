@@ -5,9 +5,9 @@ using Microsoft.Xna.Framework.Input;
 using PopnSim.Utilities;
 using MonoGame.Extended;
 
-namespace PopnSim.Scenes;
+namespace PopnSim.Screens;
 
-public class TitleScene : Scene
+public class TitleScreen : Screen
 {
     private const string TITLE_TEXT = "Pop'n Sim";
 

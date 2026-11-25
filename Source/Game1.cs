@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using PopnSim.Scenes;
+using PopnSim.Screens;
 using System;
 
 namespace PopnSim;
@@ -17,14 +17,14 @@ public class Game1 : Microsoft.Xna.Framework.Game
     public static Game1 Instance => s_instance;
 
     /// <summary>
-    /// The scene that is currently active and being updated/drawn.
+    /// The screen that is currently active and being updated/drawn.
     /// </summary>
-    private static Scene s_activeScene;
+    private static Screen s_activeScreen;
 
     /// <summary>
-    /// The next scene to switch to on a scene transition.
+    /// The next screen to switch to on a screen transition.
     /// </summary>
-    private static Scene s_nextScene;
+    private static Screen s_nextScreen;
 
     /// <summary>
     /// Gets the graphics device manager to control the presentation of graphics.
@@ -96,8 +96,8 @@ public class Game1 : Microsoft.Xna.Framework.Game
         GraphicsDevice = base.GraphicsDevice;
         SpriteBatch = new SpriteBatch(GraphicsDevice);
 
-        // Start with the title scene
-        ChangeScene(new TitleScene());
+        // Start with the title screen
+        ChangeScreen(new TitleScreen());
     }
 
     protected override void Update(GameTime gameTime)
@@ -112,34 +112,34 @@ public class Game1 : Microsoft.Xna.Framework.Game
         }
 #endif
 
-        if (s_nextScene != null) { TransitionScene(); }
+        if (s_nextScreen != null) { TransitionScreen(); }
 
-        s_activeScene?.Update(gameTime);
+        s_activeScreen?.Update(gameTime);
 
         base.Update(gameTime);
     }
 
     protected override void Draw(GameTime gameTime)
     {
-        s_activeScene?.Draw(gameTime);
+        s_activeScreen?.Draw(gameTime);
 
         base.Draw(gameTime);
     }
 
-    public static void ChangeScene(Scene next)
+    public static void ChangeScreen(Screen next)
     {
-        if (s_activeScene != next) { s_nextScene = next; }
+        if (s_activeScreen != next) { s_nextScreen = next; }
     }
 
-    private static void TransitionScene()
+    private static void TransitionScreen()
     {
-        if (s_activeScene != null) { s_activeScene.Dispose(); }
+        if (s_activeScreen != null) { s_activeScreen.Dispose(); }
 
         GC.Collect();
 
-        s_activeScene = s_nextScene;
-        s_nextScene = null;
+        s_activeScreen = s_nextScreen;
+        s_nextScreen = null;
 
-        if (s_activeScene != null) { s_activeScene.Initialize(); }
+        if (s_activeScreen != null) { s_activeScreen.Initialize(); }
     }
 }

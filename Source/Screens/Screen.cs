@@ -2,37 +2,37 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 
-namespace PopnSim.Scenes;
+namespace PopnSim.Screens;
 
 /// <summary>
-/// Scene abstract class from MonoGame Docs
+/// Screen abstract class from MonoGame Docs
 /// </summary>
-public abstract class Scene : IDisposable
+public abstract class Screen : IDisposable
 {
     /// <summary>
-    /// Gets the ContentManager used for loading scene-specific assets.
+    /// Gets the ContentManager used for loading screen-specific assets.
     /// </summary>
     /// <remarks>
-    /// Assets loaded through this ContentManager will be automatically unloaded when this scene ends.
+    /// Assets loaded through this ContentManager will be automatically unloaded when this screen ends.
     /// </remarks>
     protected ContentManager Content { get; }
 
     /// <summary>
-    /// Gets a value that indicates if the scene has been disposed of.
+    /// Gets a value that indicates if the screen has been disposed of.
     /// </summary>
     public bool IsDisposed { get; private set; }
 
-    public Scene()
+    public Screen()
     {
         Content = new ContentManager(Game1.Content.ServiceProvider);
         Content.RootDirectory = Game1.Content.RootDirectory;
     }
 
     // Finalizer, called when object is cleaned up by garbage collector.
-    ~Scene() => Dispose(false);
+    ~Screen() => Dispose(false);
 
     /// <summary>
-    /// Initializes the scene.
+    /// Initializes the screen.
     /// </summary>
     /// <remarks>
     /// When overriding this in a derived class, ensure that base.Initialize()
@@ -44,12 +44,12 @@ public abstract class Scene : IDisposable
     }
 
     /// <summary>
-    /// Override to provide logic to load content for the scene.
+    /// Override to provide logic to load content for the screen.
     /// </summary>
     public virtual void LoadContent() { }
 
     /// <summary>
-    /// Unloads scene-specific content.
+    /// Unloads screen-specific content.
     /// </summary>
     public virtual void UnloadContent()
     {
@@ -57,19 +57,19 @@ public abstract class Scene : IDisposable
     }
 
     /// <summary>
-    /// Updates this scene.
+    /// Updates this screen.
     /// </summary>
     /// <param name="gameTime">A snapshot of the timing values for the current frame.</param>
     public virtual void Update(GameTime gameTime) { }
 
     /// <summary>
-    /// Draws this scene.
+    /// Draws this screen.
     /// </summary>
     /// <param name="gameTime">A snapshot of the timing values for the current frame.</param>
     public virtual void Draw(GameTime gameTime) { }
 
     /// <summary>
-    /// Disposes of this scene.
+    /// Disposes of this screen.
     /// </summary>
     public void Dispose()
     {
@@ -78,7 +78,7 @@ public abstract class Scene : IDisposable
     }
 
     /// <summary>
-    /// Disposes of this scene.
+    /// Disposes of this screen.
     /// </summary>
     /// <param name="disposing">'
     /// Indicates whether managed resources should be disposed.  This value is only true when called from the main
