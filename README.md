@@ -1,6 +1,6 @@
 # Pop'nSim
 
-// -- TODO -- //
+A simple simulator for the rhythm game Pop'n Music.
 
 ## AI Disclosure
 This project's code uses generative AI tools, such as GitHub Copilot and ChatGPT, for code completion and general assistance.
