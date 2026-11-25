@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using PopnSim.Utilities;
+using MonoGame.Extended;
 
 namespace PopnSim.Scenes;
 
@@ -12,8 +13,7 @@ public class TitleScene : Scene
 
     private SpriteFont _textFont;
     private SpriteFont _titleFont;
-    private int _fpsCounter;
-    private GameTimer _fpsCounterTimer;
+    private FramesPerSecondCounter _fpsCounter;
 
     public override void Initialize()
     {
@@ -21,7 +21,7 @@ public class TitleScene : Scene
 
         Game1.ExitOnEscape = true;
 
-        _fpsCounterTimer = new GameTimer(0.25, true);
+        _fpsCounter = new FramesPerSecondCounter();
     }
 
     public override void LoadContent()
@@ -31,21 +31,16 @@ public class TitleScene : Scene
 
     public override void Update(GameTime gameTime)
     {
-        _fpsCounterTimer.Start();
-        if (_fpsCounterTimer.Update(gameTime))
-        {
-            _fpsCounter = (int)(1.0 / gameTime.ElapsedGameTime.TotalSeconds);
-        }
+        _fpsCounter.Update(gameTime);
     }
 
     public override void Draw(GameTime gameTime)
     {
+        _fpsCounter.Draw(gameTime);
         Game1.GraphicsDevice.Clear(Color.Black);
 
         Game1.SpriteBatch.Begin();
-
-        Game1.SpriteBatch.DrawString(_textFont, $"FPS: {_fpsCounter}", new Vector2(10, 10), Color.White);
-
+        Game1.SpriteBatch.DrawString(_textFont, $"FPS: {_fpsCounter.FramesPerSecond}", new Vector2(10, 10), Color.White);
         Game1.SpriteBatch.End();
     }
 }

@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using PopnSim.Scenes;
-using PopnSim.Utilities;
 using System;
 
 namespace PopnSim;
