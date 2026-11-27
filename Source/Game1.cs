@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using PopnSim.Input;
 using PopnSim.Screens;
 using System;
 
@@ -45,6 +46,11 @@ public class Game1 : Microsoft.Xna.Framework.Game
     /// Gets the content manager used to load global assets.
     /// </summary>
     public static new ContentManager Content { get; private set; }
+
+    /// <summary>
+    /// Gets a reference to the input management system.
+    /// </summary>
+    public static InputManager Input { get; private set; }
 
     /// <summary>
     /// Gets or Sets a value that indicates if the game should exit when the esc key on the keyboard is pressed.
@@ -95,6 +101,7 @@ public class Game1 : Microsoft.Xna.Framework.Game
         base.Initialize();
         GraphicsDevice = base.GraphicsDevice;
         SpriteBatch = new SpriteBatch(GraphicsDevice);
+        Input = new InputManager();
 
         // Start with the title screen
         ChangeScreen(new TitleScreen());
@@ -102,15 +109,13 @@ public class Game1 : Microsoft.Xna.Framework.Game
 
     protected override void Update(GameTime gameTime)
     {
-#if !__IOS__
-        // Exit the game if the Back button (GamePad) or Escape key (Keyboard) is pressed.
-        // (iOS does not allow programmatically closing an app.)
-        if (ExitOnEscape &&
-            (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape)))
+        Input.Update();
+
+        // Exit the game if Escape key (Keyboard) is pressed.
+        if (ExitOnEscape && Input.Keyboard.IsKeyDown(Keys.Escape))
         {
             Exit();
         }
-#endif
 
         if (s_nextScreen != null) { TransitionScreen(); }
 
