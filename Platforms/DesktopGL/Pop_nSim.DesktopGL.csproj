@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <!-- App name, identity and version come from ..\..\Resources\Identity.props. -->
   <Import Project="..\..\Resources\Identity.props" />
   <PropertyGroup>
@@ -28,6 +28,7 @@
     <UpToDateCheckInput Include="..\..\Content\Assets\**\*" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Gum.MonoGame" Version="2026.11.2.1" />
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.6.1" />
     <PackageReference Include="MonoGame.Extended" Version="6.1.1" />
   </ItemGroup>
