@@ -1,6 +1,8 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using MonoGame.Extended;
 using Gum.Forms.Controls;
 using Gum.GueDeriving;
@@ -8,6 +10,7 @@ using Gum.GueDeriving;
 using PopnSim;
 using PopnSim.Utilities;
 using Gum.Wireframe;
+
 
 namespace PopnSim.Screens;
 
@@ -21,10 +24,14 @@ public class TitleScreen : Screen
     private Panel _titlePanel;
 
     private FramesPerSecondCounter _fpsCounter;
+    private ILogger<TitleScreen> _logger;
 
     public override void Initialize()
     {
         base.Initialize();
+
+        var loggerFactory = Game1.Instance.Services.GetService(typeof(ILoggerFactory)) as ILoggerFactory;
+        _logger = loggerFactory?.CreateLogger<TitleScreen>() ?? NullLogger<TitleScreen>.Instance;
 
         Game1.ExitOnEscape = true;
 
@@ -114,11 +121,11 @@ public class TitleScreen : Screen
 
     private void HandlePlayClicked(object sender, EventArgs e)
     {
-        
+        _logger.LogInformation("Play button clicked.");
     }
 
     private void HandleOptionsClicked(object sender, EventArgs e)
     {
-
+        _logger.LogInformation("Options button clicked.");
     }
 }

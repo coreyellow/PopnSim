@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using Microsoft.Extensions.Logging;
 using PopnSim.Input;
 using PopnSim.Screens;
 using Gum.Forms;
@@ -70,6 +71,10 @@ public class Game1 : Microsoft.Xna.Framework.Game
 
         // Store reference to engine for global member access.
         s_instance = this;
+
+        var loggerFactory = Microsoft.Extensions.Logging.LoggerFactory.Create(builder =>
+            builder.SetMinimumLevel(LogLevel.Information).AddConsole());
+        Services.AddService(typeof(ILoggerFactory), loggerFactory);
 
         Graphics = new GraphicsDeviceManager(this);
 
