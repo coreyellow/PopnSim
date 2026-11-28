@@ -73,7 +73,13 @@ public class Game1 : Microsoft.Xna.Framework.Game
         s_instance = this;
 
         var loggerFactory = Microsoft.Extensions.Logging.LoggerFactory.Create(builder =>
-            builder.SetMinimumLevel(LogLevel.Information).AddConsole());
+            builder
+                .SetMinimumLevel(LogLevel.Information)
+                .AddSimpleConsole(options =>
+                {
+                    options.SingleLine = true;
+                    options.TimestampFormat = "[HH:mm:ss.fff] ";
+                }));
         Services.AddService(typeof(ILoggerFactory), loggerFactory);
 
         Graphics = new GraphicsDeviceManager(this);
