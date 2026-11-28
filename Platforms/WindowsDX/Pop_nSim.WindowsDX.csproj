@@ -4,7 +4,8 @@
   <Import Project="..\..\Resources\Identity.props" />
   <PropertyGroup>
     <TargetFramework>net10.0-windows</TargetFramework>
-    <OutputType>WinExe</OutputType>
+	<OutputType Condition="'$(Configuration)' == 'Debug'">Exe</OutputType>
+	<OutputType Condition="'$(Configuration)' != 'Debug'">WinExe</OutputType>
     <RollForward>Major</RollForward>
     <PublishReadyToRun>false</PublishReadyToRun>
     <TieredCompilation>false</TieredCompilation>
