@@ -74,12 +74,25 @@ public class Game1 : Microsoft.Xna.Framework.Game
         Graphics = new GraphicsDeviceManager(this);
 
         // Window settings
-        var displayMode = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode;
-        Graphics.PreferredBackBufferWidth = displayMode.Width;
-        Graphics.PreferredBackBufferHeight = displayMode.Height;
+        bool isWindowed = true;
         Graphics.HardwareModeSwitch = false;
-        Graphics.IsFullScreen = false;
-        Window.IsBorderless = true;
+
+        if (isWindowed)
+        {
+            Graphics.PreferredBackBufferWidth = 1280;
+            Graphics.PreferredBackBufferHeight = 720;
+            Graphics.IsFullScreen = false;
+            Window.IsBorderless = false;
+
+        }
+        else
+        {
+            var displayMode = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode;
+            Graphics.PreferredBackBufferWidth = displayMode.Width;
+            Graphics.PreferredBackBufferHeight = displayMode.Height;
+            Graphics.IsFullScreen = true;
+            Window.IsBorderless = true;
+        }
 
         // Frame rate settings:
         // Disable VSync
